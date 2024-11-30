@@ -74,6 +74,9 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		[SerializeField] Player player_script;
+		private float mechSpeedMultiplier = 4;
+
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -154,7 +157,15 @@ namespace StarterAssets
 		private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			float targetSpeed = MoveSpeed;
+			if (player_script.isInMech)
+            {
+				targetSpeed = targetSpeed * mechSpeedMultiplier;
+            }
+            else
+            {
+				targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			}
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -212,7 +223,7 @@ namespace StarterAssets
 				}
 
 				// Jump
-				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+				if (!player_script.isInMech && _input.jump && _jumpTimeoutDelta <= 0.0f)
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -244,6 +255,7 @@ namespace StarterAssets
 			{
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
+
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
