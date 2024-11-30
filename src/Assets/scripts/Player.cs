@@ -8,13 +8,18 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask interact_layers;
     [SerializeField] float humanScale;
     [SerializeField] float mechScale;
+    [SerializeField] GameObject mech;
     InputAction interactAction;
+    public bool isInMech;
+
+    private GameObject mechInstance;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        isInMech = true;
+        player_controller.transform.localScale = new Vector3(mechScale, mechScale, mechScale);
         interactAction = InputSystem.actions.FindAction("Interact");   
     }
 
@@ -35,29 +40,44 @@ public class Player : MonoBehaviour
 
     private void interact()
     {
-        int grab_range = 7;
+        int grab_range = 600;
         RaycastHit hit_info;
         if (Physics.Raycast(main_cam.transform.position, main_cam.transform.forward, out hit_info, grab_range, interact_layers))
         {
-            print(hit_info.ToString());
-            if(hit_info.collider.tag == "Console")
+            if (hit_info.collider != null)
             {
-                exitMech();
+                if (hit_info.collider.tag == "Console")
+                {
+                    print(hit_info.collider.gameObject.ToString());
+                    Vector3 spawnPoint = hit_info.collider.transform.position;
+                    exitMech(spawnPoint);
+                }else if(hit_info.collider.tag == "Mech")
+                {
+                    enterMech();
+
+                }
             }
         }
     }
 
-    private void exitMech()
+    private void exitMech(Vector3 spawnPoint)
     {
         //spawn mech
-        // move player forward
+        // move player to spawn position on podium
+        mechInstance = Instantiate(mech, player_controller.transform.position, player_controller.transform.rotation);
+        player_controller.transform.position = new Vector3(0, 0, 0);
+        transform.position = spawnPoint;
         player_controller.transform.localScale = new Vector3(humanScale, humanScale, humanScale);
+        
+        isInMech = false;
     }
     
     private void enterMech()
     {
-        //go to mech head.transform
+        player_controller.transform.position = mechInstance.transform.position;
+        Destroy(mechInstance);
         player_controller.transform.localScale = new Vector3(mechScale, mechScale, mechScale);
+        isInMech = true;
 
     }
 }
