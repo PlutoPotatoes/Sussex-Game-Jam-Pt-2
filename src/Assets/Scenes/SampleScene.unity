@@ -1705,7 +1705,6 @@ Transform:
   - {fileID: 33660412}
   - {fileID: 918629247}
   - {fileID: 353547158}
-  - {fileID: 1952406834}
   - {fileID: 1417910295}
   - {fileID: 2126118991}
   - {fileID: 431232105}
@@ -8261,7 +8260,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1952406834}
     m_Modifications:
     - target: {fileID: 928400093119167924, guid: e2707f5d22e2548858cd6b5858ca2e08,
         type: 3}
@@ -8271,12 +8270,12 @@ PrefabInstance:
     - target: {fileID: 928400093119167924, guid: e2707f5d22e2548858cd6b5858ca2e08,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.7
+      value: 0.40000153
       objectReference: {fileID: 0}
     - target: {fileID: 928400093119167924, guid: e2707f5d22e2548858cd6b5858ca2e08,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -118.49
+      value: -21.089996
       objectReference: {fileID: 0}
     - target: {fileID: 928400093119167924, guid: e2707f5d22e2548858cd6b5858ca2e08,
         type: 3}
@@ -8323,6 +8322,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2707f5d22e2548858cd6b5858ca2e08, type: 3}
+--- !u!4 &1516153857 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 928400093119167924, guid: e2707f5d22e2548858cd6b5858ca2e08,
+    type: 3}
+  m_PrefabInstance: {fileID: 1516153856}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1543943901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11221,7 +11226,8 @@ Transform:
   - {fileID: 688393527}
   - {fileID: 1419836639}
   - {fileID: 233960910}
-  m_Father: {fileID: 201661908}
+  - {fileID: 1516153857}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1955284260
 PrefabInstance:
@@ -12922,6 +12928,6 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 1565034885}
   - {fileID: 1743206074}
+  - {fileID: 1952406834}
   - {fileID: 1591364010}
   - {fileID: 201661908}
-  - {fileID: 1516153856}
