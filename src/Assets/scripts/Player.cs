@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
         {
             if (hit_info.collider != null)
             {
-                if (hit_info.collider.tag == "Console")
+                if (isInMech && hit_info.collider.tag == "Console")
                 {
                     print(hit_info.collider.gameObject.ToString());
                     Vector3 spawnPoint = hit_info.collider.transform.position;
@@ -62,13 +62,10 @@ public class Player : MonoBehaviour
 
     private void exitMech(Vector3 spawnPoint)
     {
-        //spawn mech
-        // move player to spawn position on podium
         mechInstance = Instantiate(mech, player_controller.transform.position, player_controller.transform.rotation);
-        player_controller.transform.position = new Vector3(0, 0, 0);
-        transform.position = spawnPoint;
         player_controller.transform.localScale = new Vector3(humanScale, humanScale, humanScale);
-        
+        player_controller.transform.position = new Vector3(-149.350006f, 11.3599997f, 214.309998f);
+
         isInMech = false;
     }
     
