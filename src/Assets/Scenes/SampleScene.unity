@@ -2572,7 +2572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &410087040
 Light:
   m_ObjectHideFlags: 0
@@ -9630,6 +9630,8 @@ MonoBehaviour:
     m_Bits: 4294967295
   humanScale: 0.6
   mechScale: 10
+  mech: {fileID: 2601167458931491113, guid: 446ed7f201755b34188ab461e964d5a0, type: 3}
+  isInMech: 0
 --- !u!1001 &1745481232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12888,6 +12890,7 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 4135013736898001707}
   TopClamp: 89
   BottomClamp: -89
+  player_script: {fileID: 1743206075}
 --- !u!143 &8616685848183669370
 CharacterController:
   m_ObjectHideFlags: 0
@@ -13038,7 +13041,7 @@ Transform:
   m_GameObject: {fileID: 8762286023911592975}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -87.03, y: 8.475965, z: 83.590225}
+  m_LocalPosition: {x: 0, y: 9.625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13180,7 +13183,7 @@ Transform:
   m_GameObject: {fileID: 8616685848183669360}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -87.03, y: -1.1490353, z: 83.59022}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -13197,7 +13200,7 @@ Transform:
   m_GameObject: {fileID: 9005220657843460917}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -87.03, y: 8.475965, z: 83.590225}
+  m_LocalPosition: {x: 0, y: 9.625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
