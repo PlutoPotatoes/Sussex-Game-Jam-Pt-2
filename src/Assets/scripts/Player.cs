@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     InputAction interactAction;
     public bool isInMech;
     private  const float interactCooldown = 1.0f;
+    [SerializeField] Transform teleport;
 
     private double lastInteract;
     private GameObject mechInstance;
@@ -103,7 +104,7 @@ public class Player : MonoBehaviour
     {
         mechInstance = Instantiate(mech, player_controller.transform.position, player_controller.transform.rotation);
         player_controller.transform.localScale = new Vector3(humanScale, humanScale, humanScale);
-        player_controller.transform.position = new Vector3(-149.350006f, 11.3599997f, 214.309998f);
+        player_controller.transform.position = teleport.position;
 
         isInMech = false;
     }

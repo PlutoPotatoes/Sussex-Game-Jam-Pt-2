@@ -36,7 +36,7 @@ public class DoubleSlidingDoorController : MonoBehaviour {
 	[SerializeField]
 	private float speed = 1f;                   //	Spped for opening and closing the door
 
-	public bool openDoor = true;
+	public bool openDoor = false;
 
 
 	//	Sound Fx
