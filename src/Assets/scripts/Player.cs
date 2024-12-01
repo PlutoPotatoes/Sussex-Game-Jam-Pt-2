@@ -1,3 +1,6 @@
+using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,16 +12,22 @@ public class Player : MonoBehaviour
     [SerializeField] float humanScale;
     [SerializeField] float mechScale;
     [SerializeField] GameObject mech;
+    [SerializeField] Transform objectGrabPoint;
     InputAction interactAction;
     public bool isInMech;
+    private  const float interactCooldown = 1.0f;
 
+    private double lastInteract;
     private GameObject mechInstance;
+    private RopeGrab heldRope;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         isInMech = true;
+        lastInteract = 0;
+        heldRope = null;
         player_controller.transform.localScale = new Vector3(mechScale, mechScale, mechScale);
         interactAction = InputSystem.actions.FindAction("Interact");   
     }
@@ -26,7 +35,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         input_listener();
     }
 
@@ -40,12 +48,15 @@ public class Player : MonoBehaviour
 
     private void interact()
     {
-        int grab_range = 600;
-        RaycastHit hit_info;
-        if (Physics.Raycast(main_cam.transform.position, main_cam.transform.forward, out hit_info, grab_range, interact_layers))
+        // only let user interact if it's been 1 second since last interact
+        if ((Time.timeAsDouble - lastInteract) >= interactCooldown)
         {
-            if (hit_info.collider != null)
+            int grab_range = 600;
+            RaycastHit hit_info;
+            if (Physics.Raycast(main_cam.transform.position, main_cam.transform.forward, out hit_info, grab_range, interact_layers))
             {
+                lastInteract = Time.timeAsDouble;
+                if (hit_info.collider != null && heldRope == null)
                 if (isInMech && hit_info.collider.tag == "Console")
                 {
                     print(hit_info.collider.gameObject.ToString());
@@ -53,11 +64,39 @@ public class Player : MonoBehaviour
                     exitMech(spawnPoint);
                 }else if(hit_info.collider.tag == "Mech")
                 {
-                    enterMech();
+                    if (hit_info.collider.tag == "Console")
+                    {
+                        print(hit_info.collider.gameObject.ToString());
+                        Vector3 spawnPoint = hit_info.collider.transform.position;
+                        exitMech(spawnPoint);
+                    }
+                    else if (hit_info.collider.tag == "Mech")
+                    {
+                        enterMech();
 
+                    }
+                    else if (hit_info.collider.tag == "Rope")
+                    {
+                        print("attempting to grab rope " + hit_info.collider.gameObject.ToString());
+                        grabRope(hit_info);
+                    }
+
+                }
+                else if (hit_info.collider != null)
+                {
+                    heldRope.Grab(null);
+                    heldRope = null;
                 }
             }
         }
+    }
+
+    private void grabRope(RaycastHit hitInfo)
+    {
+       heldRope = hitInfo.transform.GetComponentInParent<RopeGrab>();
+       print(heldRope);
+       heldRope.Grab(objectGrabPoint);
+
     }
 
     private void exitMech(Vector3 spawnPoint)
